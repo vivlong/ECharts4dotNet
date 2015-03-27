@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+    <script src="./jquery-1.11.2.min.js"></script>
+    <!--[if gt IE 8]><script src="./jquery-2.1.3.min.js"></script><![endif]-->
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./json2.js"></script>
+	<head>
+		<title></title>
+	</head>
+	<body>
+        <div class="container-fluid">
+            <div id="main" style="height:350px;"></div>
+        </div>
+        <script src="./echarts.js"></script>
+        <script>
+            var myChart;
+            var eCharts;
+            require.config({
+                paths: {
+                    echarts: './'
+                }
+            });
+            require(
+                [
+                    'echarts',
+                    'echarts/chart/line',
+                    'echarts/chart/bar'
+                ], 
+                DrawEChart
+            );
+            function DrawEChart(ec) {
+                eCharts = ec;
+                myChart = ec.init(document.getElementById('main'));
+                myChart.showLoading({
+                    text: "Chart Data is loading..."
+                });
+                var option = {
+                    title: {
+                        text: '某地区蒸发量和降水量',
+                        subtext: '纯属虚构'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['蒸发量', '降水量']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: { show: true },
+                            dataView: { show: true, readOnly: false },
+                            magicType: { show: true, type: ['line', 'bar'] },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+                    calculable: true,
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '蒸发量',
+                            type: 'bar',
+                            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                            markPoint: {
+                                data: [
+                                    { type: 'max', name: '最大值' },
+                                    { type: 'min', name: '最小值' }
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    { type: 'average', name: '平均值' }
+                                ]
+                            }
+                        },
+                        {
+                            name: '降水量',
+                            type: 'bar',
+                            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                            markPoint: {
+                                data: [
+                                    { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183, symbolSize: 18 },
+                                    { name: '年最低', value: 2.3, xAxis: 11, yAxis: 3 }
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    { type: 'average', name: '平均值' }
+                                ]
+                            }
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+                myChart.hideLoading(); 
+                //getChartData();
+                var ecConfig = require('echarts/config');
+                myChart.on(ecConfig.EVENT.DBLCLICK, function (param) {
+                    window.external.showDetail(JSON.stringify(param));
+                });
+            }
+        </script>
+
+<script type="text/javascript">
+    function showChart(option) {
+        myChart.clear();
+        myChart.setOption(JSON.parse(option));
+    }
+    function setPosition(height) {
+        var divMain = document.getElementById("main");
+        divMain.style.height = height + "px";
+        window.onresize = myChart.resize();
+    }
+    function getChartData() {
+        var options = myChart.getOption();
+        $.ajax({
+            type: "post",
+            async: false, //同步执行  
+            url: "${pageContext.request.contextPath}/echarts/line_data",
+            data: {},
+            dataType: "json", //返回数据形式为json  
+            success: function (result) {
+                if (result) {
+                    options.legend.data = result.legend;
+                    options.xAxis[0].data = result.category;
+                    options.series[0].data = result.series[0].data;
+
+                    myChart.hideLoading();
+                    myChart.setOption(options);
+                }
+            },
+            error: function (errorMsg) {
+                alert("不好意思，大爷，图表请求数据失败啦!");
+                myChart.hideLoading();
+            }
+        });
+    }  
+    </script>  
+	</body>
+</html>
