@@ -19,6 +19,7 @@ namespace EChartsNet
         }
         public object option { get; set; }
         private bool blnDocumentLoaded = false;
+        private bool blnDynamicData = false;
 
         public string param;
         [Category("echarts"), Description("Get DBClick return params.\nGet DBClick return params")]
@@ -33,14 +34,30 @@ namespace EChartsNet
                 }
             }
         }
-        public void initialECharts()
+        public void initialECharts(bool dynamicData)
         {
-            string strHtml = Application.StartupPath + @"\assets\echarts.html";
-            if (File.Exists(strHtml))
-            {                
-                this.webBrowser1.Navigate(strHtml);
-                this.webBrowser1.ObjectForScripting = this;
+            blnDynamicData = dynamicData;
+            if (blnDocumentLoaded)
+            {
+                Object[] objArray = new Object[1];
+                objArray[0] = (Object)this.option;
+                if (blnDynamicData)
+                {
+                    this.webBrowser1.Document.InvokeScript("showDynamic", objArray);
+                }
+                else
+                {
+                    this.webBrowser1.Document.InvokeScript("showChart", objArray);
+                }
             }
+            else {
+                string strHtml = Application.StartupPath + @"\assets\echarts.html";
+                if (File.Exists(strHtml))
+                {
+                    this.webBrowser1.Navigate(strHtml);
+                    this.webBrowser1.ObjectForScripting = this;
+                }
+            }            
         }
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {

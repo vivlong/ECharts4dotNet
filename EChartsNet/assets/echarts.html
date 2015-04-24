@@ -19,6 +19,7 @@
         <script>
             var myChart;
             var eCharts;
+            var timeTicket;
             require.config({
                 paths: {
                     echarts: './'
@@ -125,6 +126,31 @@
         var divMain = document.getElementById("main");
         divMain.style.height = height + "px";
         window.onresize = myChart.resize();
+    }
+    function showDynamic() {
+        var lastData = 11;
+        var axisData;
+        clearInterval(timeTicket);
+        timeTicket = setInterval(function () {
+            lastData = "";
+            axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+            // 动态数据接口 addData
+            myChart.addData([
+                [
+                    0,        // 系列索引
+                    Math.round(Math.random() * 1000), // 新增数据
+                    true,     // 新增数据是否从队列头部插入
+                    false     // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                ],
+                [
+                    1,        // 系列索引
+                    lastData, // 新增数据
+                    false,    // 新增数据是否从队列头部插入
+                    false,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                    axisData  // 坐标轴标签
+                ]
+            ]);
+        }, 2100);
     }
     function getChartData() {
         var options = myChart.getOption();

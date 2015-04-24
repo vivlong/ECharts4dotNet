@@ -29,24 +29,49 @@
         private void InitializeComponent()
         {
             this.echarts1 = new EChartsNet.echarts();
+            this.btn_static = new System.Windows.Forms.Button();
+            this.btn_dynamic = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // echarts1
             // 
-            this.echarts1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.echarts1.Location = new System.Drawing.Point(0, 0);
+            this.echarts1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.echarts1.Location = new System.Drawing.Point(0, 28);
             this.echarts1.Name = "echarts1";
             this.echarts1.option = null;
-            this.echarts1.param = null;
-            this.echarts1.Size = new System.Drawing.Size(587, 280);
+            this.echarts1.Size = new System.Drawing.Size(587, 252);
             this.echarts1.TabIndex = 0;
             this.echarts1.DbClickReturnParam += new EChartsNet.echarts.DbClickHandle(this.echarts1_DbClickReturnParam);
+            // 
+            // btn_static
+            // 
+            this.btn_static.Location = new System.Drawing.Point(6, 1);
+            this.btn_static.Name = "btn_static";
+            this.btn_static.Size = new System.Drawing.Size(75, 23);
+            this.btn_static.TabIndex = 1;
+            this.btn_static.Text = "static";
+            this.btn_static.UseVisualStyleBackColor = true;
+            this.btn_static.Click += new System.EventHandler(this.btn_static_Click);
+            // 
+            // btn_dynamic
+            // 
+            this.btn_dynamic.Location = new System.Drawing.Point(87, 1);
+            this.btn_dynamic.Name = "btn_dynamic";
+            this.btn_dynamic.Size = new System.Drawing.Size(75, 23);
+            this.btn_dynamic.TabIndex = 2;
+            this.btn_dynamic.Text = "dynamic";
+            this.btn_dynamic.UseVisualStyleBackColor = true;
+            this.btn_dynamic.Click += new System.EventHandler(this.btn_dynamic_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 280);
+            this.Controls.Add(this.btn_dynamic);
+            this.Controls.Add(this.btn_static);
             this.Controls.Add(this.echarts1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -58,6 +83,8 @@
         #endregion
 
         private EChartsNet.echarts echarts1;
+        private System.Windows.Forms.Button btn_static;
+        private System.Windows.Forms.Button btn_dynamic;
     }
 }
 
