@@ -31,6 +31,7 @@
             this.echarts1 = new EChartsNet.echarts();
             this.btn_static = new System.Windows.Forms.Button();
             this.btn_dynamic = new System.Windows.Forms.Button();
+            this.btn_bar10 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // echarts1
@@ -65,11 +66,22 @@
             this.btn_dynamic.UseVisualStyleBackColor = true;
             this.btn_dynamic.Click += new System.EventHandler(this.btn_dynamic_Click);
             // 
+            // btn_bar10
+            // 
+            this.btn_bar10.Location = new System.Drawing.Point(168, 1);
+            this.btn_bar10.Name = "btn_bar10";
+            this.btn_bar10.Size = new System.Drawing.Size(102, 23);
+            this.btn_bar10.TabIndex = 3;
+            this.btn_bar10.Text = " 温度计式图表";
+            this.btn_bar10.UseVisualStyleBackColor = true;
+            this.btn_bar10.Click += new System.EventHandler(this.btn_bar10_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 280);
+            this.Controls.Add(this.btn_bar10);
             this.Controls.Add(this.btn_dynamic);
             this.Controls.Add(this.btn_static);
             this.Controls.Add(this.echarts1);
@@ -85,6 +97,7 @@
         private EChartsNet.echarts echarts1;
         private System.Windows.Forms.Button btn_static;
         private System.Windows.Forms.Button btn_dynamic;
+        private System.Windows.Forms.Button btn_bar10;
     }
 }
 

@@ -120,13 +120,63 @@
 <script type="text/javascript">
     function showChart(option) {
         myChart.clear();
-        myChart.setOption(JSON.parse(option));
+        var op = JSON.parse(option);
+        myChart.setOption(op);
     }
     function setPosition(height) {
         var divMain = document.getElementById("main");
         divMain.style.height = height + "px";
         window.onresize = myChart.resize();
     }
+    function showBar10(option) {
+        myChart.clear();
+        var op = JSON.parse(option);
+        op.tooltip.axisPointer = { type: 'shadow' };
+        op.tooltip.formatter = function (params) {
+            return params[0].name + '<br/>'
+                   + params[0].seriesName + ' : ' + params[0].value + '<br/>'
+                   + params[1].seriesName + ' : ' + (params[1].value + params[0].value);
+        };
+        op.yAxis[0].boundaryGap = [0, 0.1];
+        op.series[0].stack = 'sum';
+        op.series[0].barCategoryGap = '50%';
+        op.series[0].itemStyle = {
+            normal: {
+                color: 'tomato',
+                barBorderColor: 'tomato',
+                barBorderWidth: 6,
+                barBorderRadius: 0,
+                label: {
+                    show: true, position: 'insideTop'
+                }
+            }
+        };
+        op.series[1].stack = 'sum';
+        op.series[1].itemStyle = {
+            normal: {
+                color: '#fff',
+                barBorderColor: 'tomato',
+                barBorderWidth: 6,
+                barBorderRadius:0,
+                label : {
+                    show: true, 
+                    position: 'top',
+                    formatter: function (params) {
+                        for (var i = 0, l = op.xAxis[0].data.length; i < l; i++) {
+                            if (op.xAxis[0].data[i] == params.name) {
+                                return op.series[0].data[i] + params.value;
+                            }
+                        }
+                    },
+                    textStyle: {
+                        color: 'tomato'
+                    }
+                }
+            }
+        };
+        myChart.setOption(op);
+    }
+
     function showDynamic() {
         var lastData = 11;
         var axisData;

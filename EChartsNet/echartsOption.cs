@@ -22,6 +22,7 @@ namespace EChartsNet
 
         public struct optionLegend
         {
+            public bool selectedMode { get; set; }
             public ArrayList data { get; set; }
         }
         public optionLegend legend;

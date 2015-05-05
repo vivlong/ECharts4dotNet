@@ -94,7 +94,7 @@ namespace EChartsNetTest
             eoption.series[1].data.Add(1);
             //
             this.echarts1.option = JsonConvert.SerializeObject(eoption);
-            this.echarts1.initialECharts(false);
+            this.echarts1.initialECharts(0);
         }
 
         private void btn_dynamic_Click(object sender, EventArgs e)
@@ -162,7 +162,58 @@ namespace EChartsNetTest
             eoption.series[1].data.Add(1);
             //
             this.echarts1.option = JsonConvert.SerializeObject(eoption);
-            this.echarts1.initialECharts(true);
+            this.echarts1.initialECharts(1001);
+        }
+
+        private void btn_bar10_Click(object sender, EventArgs e)
+        {
+            EChartsNet.echartsOption eoption = new EChartsNet.echartsOption();
+            eoption.title.text = "温度计式图表";
+            eoption.tooltip.trigger = "axis";
+            eoption.legend.selectedMode = false;
+            eoption.legend.data = new ArrayList();
+            eoption.legend.data.Add("Actual");
+            eoption.legend.data.Add("Forecast");
+            eoption.toolbox.show = true;
+            eoption.toolbox.feature.magicType.show = true;
+            eoption.toolbox.feature.magicType.type = new ArrayList();
+            eoption.toolbox.feature.magicType.type.Add("line");
+            eoption.toolbox.feature.magicType.type.Add("bar");
+            eoption.toolbox.feature.restore.show = true;
+            eoption.xAxis = new echartsOption.optionXAxis[1];
+            eoption.xAxis[0].type = "category";
+            eoption.xAxis[0].data = new ArrayList();
+            eoption.xAxis[0].data.Add("Cosco");
+            eoption.xAxis[0].data.Add("CMA");
+            eoption.xAxis[0].data.Add("APL");
+            eoption.xAxis[0].data.Add("OOCL");
+            eoption.xAxis[0].data.Add("Wanhai");
+            eoption.xAxis[0].data.Add("Zim");
+            eoption.yAxis = new echartsOption.optionYAxis[1];
+            eoption.yAxis[0].type = "value";
+            eoption.series = new echartsOption.optionSeries[2];
+            eoption.series[0].name = "Actual";
+            eoption.series[0].type = "bar";
+            eoption.series[0].data = new ArrayList();
+            eoption.series[0].data.Add(260);
+            eoption.series[0].data.Add(200);
+            eoption.series[0].data.Add(220);
+            eoption.series[0].data.Add(120);
+            eoption.series[0].data.Add(100);
+            eoption.series[0].data.Add(80);
+            //
+            eoption.series[1].name = "Forecast";
+            eoption.series[1].type = "bar";
+            eoption.series[1].data = new ArrayList();
+            eoption.series[1].data.Add(40);
+            eoption.series[1].data.Add(80);
+            eoption.series[1].data.Add(50);
+            eoption.series[1].data.Add(80);
+            eoption.series[1].data.Add(80);
+            eoption.series[1].data.Add(70);
+            //
+            this.echarts1.option = JsonConvert.SerializeObject(eoption);
+            this.echarts1.initialECharts(10);
         }
     }
 }

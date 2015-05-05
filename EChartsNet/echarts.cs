@@ -34,16 +34,19 @@ namespace EChartsNet
                 }
             }
         }
-        public void initialECharts(bool dynamicData)
+        public void initialECharts(int type)
         {
-            blnDynamicData = dynamicData;
             if (blnDocumentLoaded)
             {
                 Object[] objArray = new Object[1];
                 objArray[0] = (Object)this.option;
-                if (blnDynamicData)
+                if (type == 1001)
                 {
                     this.webBrowser1.Document.InvokeScript("showDynamic", objArray);
+                }
+                else if (type == 10)
+                {
+                    this.webBrowser1.Document.InvokeScript("showBar10", objArray);
                 }
                 else
                 {
