@@ -15,4 +15,4 @@ of the Chart control. The solution is organised into the following folders:
 
 Latest source code can be found on GitHub at https://github.com/vivlong.
 
-Please send any questions or feedback to leo@vivlong.com.
+Please send any questions or feedback to vivlonglz@gmail.com.
